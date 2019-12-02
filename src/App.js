@@ -2,51 +2,37 @@ import React from 'react';
 import ProjectItem from "./components/ProjectItem";
 import 'antd/dist/antd.css';
 import { Row, Col } from 'antd';
+import axios from 'axios';
+
+async function getDataAxios() {
+    const response = await axios.get("http://localhost:4000/all");
+    projects = response.data;
+}
 
 function App() {
-  return (
-    <div className="App">
-        <Row>
-            <Col span={12} offset={6}>
-                {projects.map((project, idx) =>
-                    <ProjectItem
-                        header={project.title}
-                        description={project.description}
-                        tags={project.tags}
-                        colors={project.colors}
-                        key={idx} />
-                )}
-            </Col>
-        </Row>
-    </div>
-  );
+    getDataAxios().then(res => console.log(projects));
+    return (
+        <div className="App">
+            <p>{projects.length}</p>
+            {projects.length > 0 &&
+                <Row>
+                    <Col span={12} offset={6}>
+                        {projects.map(project =>
+                            <ProjectItem
+                                id={project.id}
+                                header={project.title}
+                                description={project.description}
+                                tags={project.tags}
+                                colors={project.colors}
+                                key={project.id}/>
+                        )}
+                    </Col>
+                </Row>
+            }
+        </div>
+    );
 }
 
 export default App;
 
-const projects = [
-    {
-        title: 'Испытания скважин',
-        description: 'Загрузка, хранение и представление данных для геологического моделирования и подсчета запасов',
-        tags: ['Angular', 'NodeJS', 'PostgreSQL', 'Silex', 'Bootstrap'],
-        colors: ['magenta', 'volcano', 'lime', 'cyan', 'geekblue']
-    },
-    {
-        title: 'Сокращатель URL',
-        description: 'Сервис для получения альтернативного короткого URL-адреса внутри корпоративной сети Общества',
-        tags: ['Angular', 'NodeJS', 'PostgreSQL'],
-        colors: ['magenta', 'volcano', 'lime', 'cyan', 'geekblue']
-    },
-    {
-        title: 'КХД ГГПИ',
-        description: 'Корпоративное хранилище данных геолого-геофизической и промысловой информации',
-        tags: ['Angular', 'NodeJS', 'PostgreSQL'],
-        colors: ['magenta', 'volcano', 'lime', 'cyan', 'geekblue']
-    },
-    {
-        title: 'Сервис распознавания',
-        description: 'Серверное решение для распознавания изображений документов',
-        tags: ['Angular', 'NodeJS', 'PostgreSQL', '1С', 'Ontology (OWL)'],
-        colors: ['magenta', 'volcano', 'lime', 'cyan', 'geekblue']
-    }
-];
+let projects = [];

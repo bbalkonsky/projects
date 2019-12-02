@@ -1,12 +1,12 @@
 import React from 'react';
-import {Card, Icon, Tag, Typography} from "antd";
-const { Title, Paragraph, Text } = Typography;
+import {Card, Tag, Typography} from "antd";
+const { Title } = Typography;
 
 
 function ProjectItem(props) {
     return (
         <Card>
-            <Title level={3}>{props.header}</Title>
+            <Title level={3}><a href={'/' + props.id}>{props.header}</a></Title>
             <p>{props.description}</p>
             <div>
                 {props.tags.map((item, idx) =>
