@@ -8,11 +8,11 @@ function ProjectItem(props) {
         <Card>
             <Title level={3}><a href={'/' + props.id}>{props.header}</a></Title>
             <p>{props.description}</p>
-            <div>
-                {props.tags.map((item, idx) =>
-                    <Tag color={props.colors[idx]} key={idx}>{item}</Tag>
-                )}
-            </div>
+            {/*<div>*/}
+            {/*    {props.tags.map((item, idx) =>*/}
+            {/*        <Tag color={props.colors[idx]} key={idx}>{item}</Tag>*/}
+            {/*    )}*/}
+            {/*</div>*/}
         </Card>
     );
 }

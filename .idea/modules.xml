@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/projects-fromtend.iml" filepath="$PROJECT_DIR$/.idea/projects-fromtend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/projects-frontend.iml" filepath="$PROJECT_DIR$/.idea/projects-frontend.iml" />
     </modules>
   </component>
 </project>
