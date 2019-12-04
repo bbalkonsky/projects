@@ -1,15 +1,13 @@
 import React from 'react';
-import {dbprojects} from "./store/dataBase";
-import ProjectIstem from "./components/ProjectIstem";
 import 'antd/dist/antd.css';
 import { Row, Col } from 'antd';
-// import axios from 'axios';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
 import ProjectItem from "./components/ProjectItem";
+import MainPage from "./components/MainPage";
 
 function App() {
     return (
@@ -22,15 +20,7 @@ function App() {
                                 <ProjectItem />
                             </Route>
                             <Route path="/">
-                                {dbprojects.map((project, idx) =>
-                                    <ProjectIstem
-                                        id={project.id}
-                                        header={project.title}
-                                        description={project.description}
-                                        tags={project.tags}
-                                        colors={project.colors}
-                                        key={idx} />
-                                )}
+                                <MainPage />
                             </Route>
                         </Switch>
                     </Router>
