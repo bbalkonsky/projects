@@ -15,7 +15,7 @@ function App() {
                     <div style={{minHeight: '847px', background: '#fff', padding: '50px'}}>
                         <Router>
                             <Switch>
-                                <Route path="/project/:id">
+                                <Route path="/project/:projectId">
                                     <ProjectItem />
                                 </Route>
                                 <Route path="/">

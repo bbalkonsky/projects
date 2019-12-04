@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import MainPageItem from "./MainPageItem";
 import {Affix, Button, Row} from "antd";
+import axios from 'axios';
 
 function MainPage() {
 
     const [projects, setProjects] = useState([]);
     useEffect(() => {
-    //     axios.get("http://localhost:4000/all").then(res => setProjects(res.data));
-        setProjects(dbprojects);
+        axios.get("http://localhost:4000/all").then(res => setProjects(res.data));
+        // setProjects(dbprojects);
     }, []);
 
     // if (projects.length === 0) {return null};
@@ -25,9 +26,9 @@ function MainPage() {
                             id={project.id}
                             header={project.title}
                             description={project.description}
-                            prodUrl={project.prodUrl}
-                            devUrl={project.devUrl}
-                            gitUrl={project.gitUrl}
+                            prodUrl={project.prod_link}
+                            devUrl={project.dev_link}
+                            gitUrl={project.git_link}
                             key={project.id}/>
                 )}
         </Row>
@@ -35,38 +36,3 @@ function MainPage() {
 }
 
 export default MainPage;
-
-const dbprojects = [
-    {
-        id: 0,
-        title: 'Испытания скважин',
-        description: 'Загрузка, хранение и представление данных для геологического моделирования и подсчета запасов',
-        prodUrl: '',
-        devUrl: 'https://welltesting-dev.adm.ggr.gazprom.ru/',
-        gitUrl: 'https://gitlab.adm.ggr.gazprom.ru:8111/shortcuts'
-    },
-    {
-        id: 1,
-        title: 'Сокращатель URL',
-        description: 'Сервис для получения альтернативного короткого URL-адреса внутри корпоративной сети Общества',
-        prodUrl: 'https://welltesting.adm.ggr.gazprom.ru/',
-        devUrl: 'https://welltesting-dev.adm.ggr.gazprom.ru/',
-        gitUrl: 'https://gitlab.adm.ggr.gazprom.ru:8111/shortcuts'
-    },
-    {
-        id: 2,
-        title: 'КХД ГГПИ',
-        description: 'Корпоративное хранилище данных геолого-геофизической и промысловой информации',
-        prodUrl: 'https://welltesting.adm.ggr.gazprom.ru/',
-        devUrl: 'https://welltesting-dev.adm.ggr.gazprom.ru/',
-        gitUrl: 'https://gitlab.adm.ggr.gazprom.ru:8111/shortcuts'
-    },
-    {
-        id: 3,
-        title: 'Сервис распознавания',
-        description: 'Серверное решение для распознавания изображений документов',
-        prodUrl: 'https://welltesting.adm.ggr.gazprom.ru/',
-        devUrl: 'https://welltesting-dev.adm.ggr.gazprom.ru/',
-        gitUrl: 'https://gitlab.adm.ggr.gazprom.ru:8111/shortcuts'
-    }
-];
