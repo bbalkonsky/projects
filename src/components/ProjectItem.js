@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import {Form, Input, Row, Col, Button } from 'antd'
-import {dbprojects} from "../store/dataBase";
-import {Card, Tag, Typography} from "antd";
+import {Form, Input, Button } from 'antd'
+import {Card, Typography} from "antd";
 import {useParams} from "react-router";
 import {Link} from "react-router-dom";
 
@@ -10,16 +9,15 @@ const { Title } = Typography;
 
 function ProjectItem() {
     let { id } = useParams();
-    let {_, title, description, tags, colors} = dbprojects.find(project => project.id === parseInt(id, 10));
+    let project = dbprojects.find(project => project.id === parseInt(id, 10));
 
-    const [titleValue, setTitleValue] = useState(title);
-    const [descriptionValue, setDescriptionValue] = useState(description);
+    const [titleValue, setTitleValue] = useState(project.title);
+    const [descriptionValue, setDescriptionValue] = useState(project.description);
 
     function handleSubmit(event) {
         event.preventDefault();
-        const data = dbprojects.find(project => project.id === parseInt(id, 10));
-        data.title = titleValue;
-        data.description = descriptionValue;
+        project.title = titleValue;
+        project.description = descriptionValue;
     }
 
     function handleChange(event) {
@@ -37,13 +35,8 @@ function ProjectItem() {
         <Card>
             <Link to='/'>Домой</Link>
 
-            <Title level={3}>{title}</Title>
-            <p>{description}</p>
-            <div>
-                {tags.map((item, idx) =>
-                    <Tag color={colors[idx]} key={idx}>{item}</Tag>
-                )}
-            </div>
+            <Title level={3}>{titleValue}</Title>
+            <p>{descriptionValue}</p>
 
             <Form onSubmit={handleSubmit} layout="horizontal">
                 <Form.Item label="Заголовок">
@@ -61,3 +54,26 @@ function ProjectItem() {
 }
 
 export default ProjectItem;
+
+const dbprojects = [
+    {
+        id: 0,
+        title: 'Испытания скважин',
+        description: 'Загрузка, хранение и представление данных для геологического моделирования и подсчета запасов',
+    },
+    {
+        id: 1,
+        title: 'Сокращатель URL',
+        description: 'Сервис для получения альтернативного короткого URL-адреса внутри корпоративной сети Общества',
+    },
+    {
+        id: 2,
+        title: 'КХД ГГПИ',
+        description: 'Корпоративное хранилище данных геолого-геофизической и промысловой информации',
+    },
+    {
+        id: 3,
+        title: 'Сервис распознавания',
+        description: 'Серверное решение для распознавания изображений документов',
+    }
+];
