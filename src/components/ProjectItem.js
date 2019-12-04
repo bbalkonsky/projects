@@ -27,6 +27,17 @@ function ProjectItem() {
                 resultHandler(res.data[0]);
                 setIsReady(true);
             });
+
+        // axios.post("http://localhost:4000/post", {
+        //     id: '123',
+        //     title: '123',
+        //     description: '123',
+        //     prod_link: '123',
+        //     dev_link: '123',
+        //     git_link: '123',
+        //     other: '123',
+        // }).then(res => console.log(res.data));
+
     }, []);
 
     // let project = dbprojects.find(project => project.id === parseInt(id, 10));
