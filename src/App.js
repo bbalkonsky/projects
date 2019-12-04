@@ -26,6 +26,7 @@ function App() {
                     </Router>
                 </Col>
             </Row>
+
         </div>
     );
 }
