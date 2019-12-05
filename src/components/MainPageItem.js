@@ -13,8 +13,8 @@ function MainPageItem(props) {
 
                 <Button.Group>
                     <Button disabled={!props.prodUrl}><a href={props.prodUrl}>Production-сервер</a></Button>
-                    <Button><a href={props.devUrl}>Staging-сервер</a></Button>
-                    <Button><a href={props.gitUrl}>GitLab</a></Button>
+                    <Button disabled={!props.devUrl}><a href={props.devUrl}>Staging-сервер</a></Button>
+                    <Button disabled={!props.gitUrl}><a href={props.gitUrl}>GitLab</a></Button>
                 </Button.Group>
             </Card>
         </Col>

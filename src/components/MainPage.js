@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import MainPageItem from "./MainPageItem";
 import {Affix, Button, Row} from "antd";
 import axios from 'axios';
+import {useHistory} from "react-router-dom";
 
 function MainPage() {
+    let history = useHistory();
 
     const [projects, setProjects] = useState([]);
     useEffect(() => {
@@ -13,10 +15,14 @@ function MainPage() {
 
     // if (projects.length === 0) {return null};
 
+    function newButtonClicked() {
+        history.push('/project/new');
+    }
+
     return (
         <Row gutter={30}>
             <Affix style={{position: 'absolute', zIndex: '1', right: 0,}} offsetTop='0'>
-                <Button className="main-button" type="primary" shape="circle" size="large" icon="plus" />
+                <Button className="main-button" type="primary" shape="circle" size="large" onClick={newButtonClicked} icon="plus" />
             </Affix>
 
             {projects.length &&

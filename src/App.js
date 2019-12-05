@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProjectItem from "./components/ProjectItem";
 import MainPage from "./components/MainPage";
+import FormPage from "./components/FormPage";
 
 const {Content, Footer} = Layout;
 
@@ -15,6 +16,9 @@ function App() {
                     <div style={{minHeight: '847px', background: '#fff', padding: '50px'}}>
                         <Router>
                             <Switch>
+                                <Route path="/project/new">
+                                    <FormPage />
+                                </Route>
                                 <Route path="/project/:projectId">
                                     <ProjectItem />
                                 </Route>
