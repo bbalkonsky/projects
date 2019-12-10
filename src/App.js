@@ -16,6 +16,9 @@ function App() {
                     <div style={{minHeight: '847px', background: '#fff', padding: '50px'}}>
                         <Router>
                             <Switch>
+                                <Route path="/project/edit/:projectId">
+                                    <FormPage />
+                                </Route>
                                 <Route path="/project/new">
                                     <FormPage />
                                 </Route>

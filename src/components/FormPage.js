@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Input, Button, Card} from 'antd'
-import {useHistory} from "react-router-dom";
+import {Form, Input, Button, Card, Affix, Row} from 'antd'
+import {useHistory, useParams} from "react-router-dom";
 import axios from "axios";
 
 const { TextArea } = Input;
 
-function FormPage(props) {
+function FormPage() {
     let history = useHistory();
+    let {projectId} = useParams();
 
     const [titleValue, setTitleValue] = useState('');
     const [descriptionValue, setDescriptionValue] = useState('');
@@ -18,8 +19,8 @@ function FormPage(props) {
     const [project, setProject] = useState({});
 
     useEffect(() => {
-        if (props.projectId) {
-            axios.get(`http://localhost:4000/project/${props.projectId}`)
+        if (projectId) {
+            axios.get(`http://localhost:4000/project/${projectId}`)
                 .then(res => {
                     resultHandler(res.data[0]);
                     setIsReady(true);
@@ -27,7 +28,7 @@ function FormPage(props) {
         }
     }, []);
 
-    function writeProject() {
+    function createProject() {
         axios.post("http://localhost:4000/post", {
             id: `${Math.floor(Math.random() * Math.floor(9999))}`,
             title: titleValue,
@@ -36,7 +37,22 @@ function FormPage(props) {
             dev_link: devUrlValue,
             git_link: gitUrlValue,
             other: '¯\\_(ツ)_/¯',
-        }).then(res => console.log(res.data));
+        }).then(res => {
+            history.goBack();
+        });
+    }
+
+    function editProject() {
+        axios.put(`http://localhost:4000/project/edit/${projectId}`, {
+            id: `${projectId}`,
+            title: titleValue,
+            description: descriptionValue,
+            prod_link: prodUrlValue,
+            dev_link: devUrlValue,
+            git_link: gitUrlValue,
+        }).then(res => {
+            history.push(`/project/${projectId}`);
+        });
     }
 
     const [isFormTouched, setFormTouched] = useState(false);
@@ -51,11 +67,10 @@ function FormPage(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        writeProject();
-        if (props.projectId) {
-            history.push('/');
+        if (projectId) {
+            editProject();
         } else {
-            history.goBack();
+            createProject();
         }
     }
 
@@ -77,30 +92,51 @@ function FormPage(props) {
         setFormTouched(true);
     }
 
+    function onDeleteClick() {
+        axios.delete(`http://localhost:4000/delete/${projectId}`)
+            .then(res => {
+                history.push(`/`);
+            });
+    }
+
+    function backButtonClicked() {
+        history.goBack();
+    }
+
     return (
-        <Card>
-            <Form onSubmit={handleSubmit} layout="horizontal">
-                <Form.Item label="Заголовок">
-                    <Input name="titleValue" value={titleValue} onChange={handleChange}/>
-                </Form.Item>
-                <Form.Item label="Описание">
-                    <TextArea name="descriptionValue" value={descriptionValue} onChange={handleChange}/>
-                </Form.Item>
-                <Form.Item label="Staging-сервер">
-                    <Input name="prodUrlValue" value={prodUrlValue} onChange={handleChange}/>
-                </Form.Item>
-                <Form.Item label="Production-сервер">
-                    <Input name="devUrlValue" value={devUrlValue} onChange={handleChange}/>
-                </Form.Item>
-                <Form.Item label="GitLab">
-                    <Input name="gitUrlValue" value={gitUrlValue} onChange={handleChange}/>
-                </Form.Item>
-                <Form.Item>
-                    <Button htmlType="submit" type="primary" block={true}
-                            disabled={!isFormTouched}>Сохранить</Button>
-                </Form.Item>
-            </Form>
-        </Card>
+        <Row gutter={30}>
+            <Affix style={{position: 'absolute', zIndex: '1', right: 0,}} offsetTop='0'>
+                <Button className="main-button" type="primary" shape="circle" size="large" onClick={backButtonClicked} icon="rollback" />
+            </Affix>
+            <Card>
+                <Form onSubmit={handleSubmit} layout="horizontal">
+                    <Form.Item label="Заголовок">
+                        <Input name="titleValue" value={titleValue} onChange={handleChange}/>
+                    </Form.Item>
+                    <Form.Item label="Описание">
+                        <TextArea name="descriptionValue" value={descriptionValue} onChange={handleChange}/>
+                    </Form.Item>
+                    <Form.Item label="Staging-сервер">
+                        <Input name="prodUrlValue" value={prodUrlValue} onChange={handleChange}/>
+                    </Form.Item>
+                    <Form.Item label="Production-сервер">
+                        <Input name="devUrlValue" value={devUrlValue} onChange={handleChange}/>
+                    </Form.Item>
+                    <Form.Item label="GitLab">
+                        <Input name="gitUrlValue" value={gitUrlValue} onChange={handleChange}/>
+                    </Form.Item>
+                    <Form.Item>
+                        <Button.Group>
+                            <Button htmlType="submit" type="primary"
+                                    disabled={!isFormTouched}>Сохранить</Button>
+                            {projectId &&
+                                <Button type="danger" onClick={onDeleteClick}>Удалить</Button>
+                            }
+                        </Button.Group>
+                    </Form.Item>
+                </Form>
+            </Card>
+        </Row>
     )
 }
 

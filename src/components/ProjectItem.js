@@ -25,7 +25,7 @@ function ProjectItem() {
     }, []);
 
     function homeButtonClicked() {
-        history.push('/');
+        history.push(`/project/edit/${projectId}`);
     }
 
     const titleElement = project.title ? <Title level={3}>{project.title}</Title> : '';
@@ -37,7 +37,7 @@ function ProjectItem() {
     return (
         <Row gutter={30}>
             <Affix style={{position: 'absolute', zIndex: '1', right: 0,}} offsetTop='0'>
-                <Button className="main-button" type="primary" shape="circle" size="large" onClick={homeButtonClicked} icon="rollback" />
+                <Button className="main-button" type="primary" shape="circle" size="large" onClick={homeButtonClicked} icon="setting" />
             </Affix>
             {isReady &&
                 <Card>
