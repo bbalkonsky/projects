@@ -24,8 +24,12 @@ function ProjectItem() {
             });
     }, []);
 
-    function homeButtonClicked() {
+    function editButtonClicked() {
         history.push(`/project/edit/${projectId}`);
+    }
+
+    function homeButtonClicked() {
+        history.push(`/`);
     }
 
     const titleElement = project.title ? <Title level={3}>{project.title}</Title> : '';
@@ -37,8 +41,13 @@ function ProjectItem() {
     return (
         <Row gutter={30}>
             <Affix style={{position: 'absolute', zIndex: '1', right: 0,}} offsetTop='0'>
-                <Button className="main-button" type="primary" shape="circle" size="large" onClick={homeButtonClicked} icon="setting" />
+                <Button className="main-button" type="primary" shape="circle" size="large" onClick={editButtonClicked} icon="setting" />
             </Affix>
+
+            <Affix style={{position: 'absolute', zIndex: '1', left: 0,}} offsetTop='0'>
+                <Button className="left-button" type="primary" shape="circle" size="large" onClick={homeButtonClicked} icon="home" />
+            </Affix>
+
             {isReady &&
                 <Card>
                     {titleElement}

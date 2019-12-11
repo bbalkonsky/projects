@@ -102,11 +102,24 @@ function FormPage() {
         history.goBack();
     }
 
+    function homeButtonClicked() {
+        history.push(`/`);
+    }
+
     return (
         <Row gutter={30}>
-            <Affix style={{position: 'absolute', zIndex: '1', right: 0,}} offsetTop='0'>
-                <Button className="main-button" type="primary" shape="circle" size="large" onClick={backButtonClicked} icon="rollback" />
+            {
+                projectId &&
+                    <Affix style={{position: 'absolute', zIndex: '1', right: 0,}} offsetTop='0'>
+                        <Button className="main-button" type="primary" shape="circle" size="large"
+                                onClick={backButtonClicked} icon="rollback"/>
+                    </Affix>
+            }
+
+            <Affix style={{position: 'absolute', zIndex: '1', left: 0,}} offsetTop='0'>
+                <Button className="left-button" type="primary" shape="circle" size="large" onClick={homeButtonClicked} icon="home" />
             </Affix>
+
             <Card>
                 <Form onSubmit={handleSubmit} layout="horizontal">
                     <Form.Item label="Заголовок">
@@ -128,8 +141,9 @@ function FormPage() {
                         <Button.Group>
                             <Button htmlType="submit" type="primary"
                                     disabled={!isFormTouched}>Сохранить</Button>
-                            {projectId &&
-                                <Button type="danger" onClick={onDeleteClick}>Удалить</Button>
+                            {
+                                projectId &&
+                                    <Button type="danger" onClick={onDeleteClick}>Удалить</Button>
                             }
                         </Button.Group>
                     </Form.Item>
