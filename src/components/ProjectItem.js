@@ -30,9 +30,9 @@ function ProjectItem() {
 
     const titleElement = project.title ? <Title level={3}>{project.title}</Title> : '';
     const descriptionElement = project.description ? <p>{project.description}</p> : '';
-    const prodLinkElement = project.prod_link ? <p><a href={project.prod_link}>Production-сервер</a></p> : '';
-    const devLinkElement = project.dev_link ? <p><a href={project.dev_link}>Develop-сервер</a></p> : '';
-    const gitLinkElement = project.git_link ? <p><a href={project.git_link}>GitLab</a></p> : '';
+    const prodLinkElement = project.prod_url ? <p><a href={project.prod_url}>Production-сервер</a></p> : '';
+    const devLinkElement = project.dev_url ? <p><a href={project.dev_url}>Develop-сервер</a></p> : '';
+    const gitLinkElement = project.git_url ? <p><a href={project.git_url}>GitLab</a></p> : '';
 
     return (
         <Row gutter={30}>

@@ -32,9 +32,9 @@ function MainPage() {
                             id={project.id}
                             header={project.title}
                             description={project.description}
-                            prodUrl={project.prod_link}
-                            devUrl={project.dev_link}
-                            gitUrl={project.git_link}
+                            prodUrl={project.prod_url}
+                            devUrl={project.dev_url}
+                            gitUrl={project.git_url}
                             key={project.id}/>
                 )}
         </Row>

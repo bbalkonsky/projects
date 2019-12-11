@@ -36,7 +36,6 @@ function FormPage() {
             prod_link: prodUrlValue,
             dev_link: devUrlValue,
             git_link: gitUrlValue,
-            other: '¯\\_(ツ)_/¯',
         }).then(res => {
             history.goBack();
         });
@@ -60,9 +59,9 @@ function FormPage() {
     function resultHandler(result) {
         setTitleValue(result.title);
         setDescriptionValue(result.description);
-        setprodUrlValue(result.prod_link);
-        setDevUrlValue(result.dev_link);
-        setGitUrlValue(result.git_link);
+        setprodUrlValue(result.prod_url);
+        setDevUrlValue(result.dev_url);
+        setGitUrlValue(result.git_url);
     }
 
     function handleSubmit(event) {
